@@ -277,6 +277,12 @@ export default class Gantt {
     if (!this.gantt_end) gantt_end = new Date();
     else gantt_end = date_utils.start_of(this.gantt_end, "day");
 
+    // Force mondays
+    gantt_start = date_utils.add(gantt_start,
+      (gantt_start.getDay() - 2 ) % 7,
+      'day'
+    );
+
     // add date padding on both sides
     let viewKey;
     for (let [key, value] of Object.entries(VIEW_MODE)) {
@@ -626,7 +632,7 @@ export default class Gantt {
       this.$current_highlight = this.create_el({ top, left, height, classes: 'current-highlight', append_to: this.$container })
       let $today = document.getElementById(date_utils.format(date).replaceAll(' ', '_'))
 
-      if ($today) { 
+      if ($today) {
         $today.classList.add('current-date-highlight')
         $today.style.top = +$today.style.top.slice(0, -2) - 4 + 'px'
         $today.style.left = +$today.style.left.slice(0, -2) - 8 + 'px'

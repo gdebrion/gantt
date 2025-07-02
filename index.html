@@ -40,8 +40,8 @@
     <script>
       let tasks = [
         {
-        	start: '2024-04-01',
-        	end: '2024-04-01',
+        	start: '2024-04-03',
+        	end: '2024-04-03',
         	name: 'Redesign website',
         	id: "Task 0",
         	progress: 30
@@ -99,7 +99,7 @@
 
       // Uncomment to test fixed header
       tasks = [...tasks, ...Array.from({length: tasks.length * 3}, (_, i) => ({...tasks[i % 3], id: i}))]
-      
+
       let gantt_chart = new Gantt(".gantt-target", tasks, {
         on_click: (task) => {
           console.log("Click", task);
@@ -137,7 +137,7 @@
             let dayOfYear = ((date - yearStart + 1) / 86400000);
             let week = Math.ceil(dayOfYear / 7);
 
-            console.log(date, week);
+            // console.log(date, week);
 
             return default_label + ' ⋅ S' + week;
           }
@@ -146,7 +146,7 @@
         },
         // upper_text: (date, view_mode, def) => def,
       });
-      console.log(gantt_chart);
+      // console.log(gantt_chart);
 
       // Change view buttons
       function changeView(btn) {
@@ -155,7 +155,7 @@
         if (btn.dataset.view && views.includes(btn.dataset.view)) {
           gantt_chart.change_view_mode(btn.dataset.view);
         }
-      }     
+      }
 
       document.querySelectorAll('.change-view').forEach(
         btn => btn.addEventListener('click', function() { changeView(btn); })
