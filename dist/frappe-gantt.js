@@ -1432,11 +1432,7 @@ var Gantt = (function () {
       if (!this.gantt_end) gantt_end = new Date();
       else gantt_end = date_utils.start_of(this.gantt_end, "day");
 
-      // Force mondays
-      gantt_start = date_utils.add(gantt_start,
-        (gantt_start.getDay() - 2 ) % 7,
-        'day'
-      );
+
 
       // add date padding on both sides
       let viewKey;
@@ -1464,6 +1460,12 @@ var Gantt = (function () {
       } else {
         format_string = "YYYY-MM-DD HH";
       }
+
+      // Force mondays
+      while (gantt_start.getDay() !== 1) {
+        gantt_start = date_utils.add(gantt_start, -1, "day");
+      }
+
       this.gantt_start = date_utils.parse(date_utils.format(gantt_start, format_string));
       this.gantt_start.setHours(0, 0, 0, 0);
       this.gantt_end = date_utils.add(
